@@ -4,7 +4,9 @@ const app = express();
 const morgan = require("morgan");
 const port = process.env["PORT"];
 const path = require("path");
-console.log(port);
+
+//
+const user = require("./routes/user");
 
 // SET
 app.set("view engine", "ejs");
@@ -16,16 +18,16 @@ app.engine("ejs", require("ejs-mate"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
 
-// ROUTES
-
 //
-
 app.get("/", (req, res) => {
-  res.send("<h1>Hello World</h1>");
+  res.render("index");
 });
 
-//
+// ROUTES
 
+app.use("/", user);
+
+//
 app.listen(port, () => {
   console.log("Server is listening on http://localhost:8080");
 });
